@@ -25,7 +25,7 @@ class PlaceController extends AbstractApiController
     {
         try {
             $em = $this->getDoctrine();
-            $places = $em->getRepository("ApiBundle:Place")->myFindAll();
+            $places = $em->getRepository("ApiBundle:Place")->findAll();
 
             return $this->sendResponseSuccess($places);
         } catch (\Exception $exc) {

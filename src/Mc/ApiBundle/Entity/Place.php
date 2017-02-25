@@ -4,12 +4,14 @@ namespace Mc\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @ORM\Entity(repositoryClass="Mc\ApiBundle\Repository\PlaceRepository")
  * @ORM\Table(name="places",
  *      uniqueConstraints={@ORM\UniqueConstraint(name="places_name_unique",columns={"name"})}
  * )
+ *  @Hateoas\Relation("self", href = "expr('/api/plcas/' ~ object.getId())")
  */
 class Place
 {
