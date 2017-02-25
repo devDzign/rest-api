@@ -183,7 +183,12 @@ class PlaceController extends AbstractApiController
     {
         $this->updatePlace($request, false);
     }
-    
+
+    /**
+     * @param Request $request
+     * @param $clearMissing
+     * @return Response
+     */
     private function updatePlace(Request $request, $clearMissing)
     {
         try {
