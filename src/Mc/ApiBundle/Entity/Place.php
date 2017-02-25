@@ -3,12 +3,13 @@
 namespace Mc\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Place
- *
- * @ORM\Table(name="place")
  * @ORM\Entity(repositoryClass="Mc\ApiBundle\Repository\PlaceRepository")
+ * @ORM\Table(name="places",
+ *      uniqueConstraints={@ORM\UniqueConstraint(name="places_name_unique",columns={"name"})}
+ * )
  */
 class Place
 {
@@ -23,17 +24,34 @@ class Place
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
      * @ORM\Column(name="address", type="string", length=255, nullable=true)
      */
     private $address;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Price", mappedBy="place")
+     * @var Price[]
+     */
+    protected $prices;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->prices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -93,5 +111,38 @@ class Place
     {
         return $this->address;
     }
-}
 
+    /**
+     * Add price
+     *
+     * @param \Mc\ApiBundle\Entity\Price $price
+     *
+     * @return Place
+     */
+    public function addPrice(\Mc\ApiBundle\Entity\Price $price)
+    {
+        $this->prices[] = $price;
+
+        return $this;
+    }
+
+    /**
+     * Remove price
+     *
+     * @param \Mc\ApiBundle\Entity\Price $price
+     */
+    public function removePrice(\Mc\ApiBundle\Entity\Price $price)
+    {
+        $this->prices->removeElement($price);
+    }
+
+    /**
+     * Get prices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPrices()
+    {
+        return $this->prices;
+    }
+}

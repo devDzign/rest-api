@@ -18,7 +18,7 @@ class PlaceController extends AbstractApiController
 
     /**
      * return List places
-     *
+     * @Rest\View(serializerGroups={"place"})
      * @return Response
      * */
     public function cgetPlacesAction()
@@ -43,7 +43,7 @@ class PlaceController extends AbstractApiController
      *  <ul>
      *      <li>id place</li>
      *  </ul>
-     *
+     * @Rest\View(serializerGroups={"place"})
      * @param $id
      * @return Response
      */
@@ -82,6 +82,7 @@ class PlaceController extends AbstractApiController
      *      <li> name</li>
      *      <li> address </li>
      *  </ul>
+     * @Rest\View(serializerGroups={"place"})
      * @param Request $request
      * @return Response
      * */
@@ -125,7 +126,7 @@ class PlaceController extends AbstractApiController
      *      <li> body </li>
      *  </ul>
      *
-     *
+     * @Rest\View(serializerGroups={"place"})
      * @return Response
      * */
     public function deletePlaceAction($id)
@@ -149,8 +150,13 @@ class PlaceController extends AbstractApiController
                     Response::HTTP_NOT_FOUND);
             }
 
-            $em->getManager()->remove($place);
-            $em->getManager()->flush();
+            $manager = $em->getManager();
+            foreach ($place->getPrices() as $price) {
+                $manager->remove($price);
+            }
+
+            $manager->remove($place);
+            $manager->flush();
 
             return $this->sendResponseSuccess($place, Response::HTTP_NO_CONTENT);
         } catch (\Exception $exc) {
@@ -164,6 +170,7 @@ class PlaceController extends AbstractApiController
      *
      * Put Update one place
      *
+     * @Rest\View(serializerGroups={"place"})
      * @param Request $request
      * @return Response
      * */
@@ -175,7 +182,7 @@ class PlaceController extends AbstractApiController
     /**
      *
      * patch Partial Update one place
-     *
+     * @Rest\View(serializerGroups={"place"})
      * @param Request $request
      * @return Response
      * */
@@ -196,7 +203,6 @@ class PlaceController extends AbstractApiController
             $place = $em
                 ->getRepository('ApiBundle:Place')
                 ->find($request->get('id'));
-
 
             if (empty($place)) {
                 return $this->sendResponseError("La place id: " . $request->get('id') . " n'existe pas ",
