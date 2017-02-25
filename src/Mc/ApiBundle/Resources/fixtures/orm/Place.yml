@@ -1,0 +1,5 @@
+'Mc\ApiBundle\Entity\Place':
+    place_{1..100}:
+        name: <sentence()>
+        address: <sentence()>
+
