@@ -1,0 +1,8 @@
+mc.api.place:
+    type:   rest
+    resource:   "ApiBundle:Place"
+    name_prefix: api_
+#france.tv.users:
+#    type:   rest
+#    resource:   "@ApiBundle/Controller/UsersController.php"
+#    prefix: /users

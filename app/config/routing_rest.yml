@@ -1,0 +1,4 @@
+#app/routing_rest.yml
+Rest_place :
+  type : rest
+  resource: "@ApiBundle/Resources/config/routing.yml"
