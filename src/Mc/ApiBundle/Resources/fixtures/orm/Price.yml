@@ -1,0 +1,5 @@
+'Mc\ApiBundle\Entity\Price':
+    price_{1..500}:
+        type: <sentence()>
+        value: <numberBetween(0, 5)>
+        place: '@place_*'
