@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Mc\ApiBundle\ApiBundle(),
         ];
 

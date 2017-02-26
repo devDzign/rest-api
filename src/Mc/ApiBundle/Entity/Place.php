@@ -16,6 +16,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class Place
 {
     /**
+     * Identifiant unique du lieu
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -41,6 +43,7 @@ class Place
     private $address;
 
     /**
+     * @Assert\Valid()
      * @ORM\OneToMany(targetEntity="Price", mappedBy="place")
      * @var Price[]
      */

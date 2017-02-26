@@ -10,4 +10,25 @@ namespace Mc\ApiBundle\Repository;
  */
 class PlaceRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function myFindAll($limit = "", $offset = "", $sort = null)
+    {
+
+        $qb = $this
+            ->createQueryBuilder('p');
+        if ($offset != "") {
+            $qb->setFirstResult($offset);
+        }
+
+        if ($limit != "") {
+            $qb->setMaxResults($limit);
+        }
+
+        if (in_array($sort, ['asc', 'desc'])) {
+            $qb->orderBy('p.name', $sort);
+        }
+
+        return $qb->getQuery()->getResult();
+
+    }
 }

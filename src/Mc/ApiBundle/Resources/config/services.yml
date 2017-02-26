@@ -2,3 +2,9 @@ services:
 #    api.example:
 #        class: Mc\ApiBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+
+    app_bundle.api_doc.fos_rest_form_errors_parser:
+        class: Mc\ApiBundle\Parser\FOSRestFormErrorsParser
+        tags:
+            - { name: nelmio_api_doc.extractor.parser, priority: 2 }
