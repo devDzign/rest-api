@@ -1,0 +1,458 @@
+{
+  "swaggerVersion": "2.0",
+  "apiVersion": "1.0",
+  "basePath": "\/",
+  "resourcePath": "\/api-places",
+  "apis": [
+    {
+      "path": "\/api\/places",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "R\u00e9cup\u00e8re la liste des lieux de l'application",
+          "nickname": "get_api-places",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "offset",
+              "type": "string",
+              "description": "Index de d\u00e9but de la pagination"
+            },
+            {
+              "paramType": "query",
+              "name": "limit",
+              "type": "string",
+              "description": "Index de fin de la pagination"
+            },
+            {
+              "paramType": "query",
+              "name": "sort",
+              "type": "string",
+              "description": "Ordre de tri (bas\u00e9 sur le nom)"
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "message": "See standard HTTP status code reason for 200",
+              "responseModel": "Mc.ApiBundle.Entity.Place"
+            }
+          ],
+          "type": "Mc.ApiBundle.Entity.Place"
+        },
+        {
+          "method": "POST",
+          "summary": "R\u00e9cup\u00e8re la liste des lieux de l'application",
+          "nickname": "post_api-places",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Pet object that needs to be added to the store",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Pet"
+              }
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "message": "Cr\u00e9ation avec succ\u00e8s",
+              "responseModel": "Mc.ApiBundle.Entity.Place"
+            },
+            {
+              "code": 400,
+              "message": "Formulaire invalide",
+              "responseModel": "Mc.ApiBundle.Form.PlaceType"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "\/api\/places\/{id}",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "R\u00e9cup\u00e8re la liste des lieux de l'application",
+          "nickname": "delete_api-places",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "responseMessages": []
+        },
+        {
+          "method": "GET",
+          "summary": "R\u00e9cup\u00e8re la liste des lieux de l'application",
+          "nickname": "get_api-places",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "responseMessages": []
+        },
+        {
+          "method": "PATCH",
+          "summary": "R\u00e9cup\u00e8re la liste des lieux de l'application",
+          "nickname": "patch_api-places",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "name",
+              "type": "string",
+              "description": "Nom du lieu"
+            },
+            {
+              "paramType": "form",
+              "name": "address",
+              "type": "string",
+              "description": "Adresse compl\u00e8te du lieu"
+            },
+            {
+              "paramType": "form",
+              "name": "prices",
+              "type": "Mc.ApiBundle.Form.PriceType",
+              "$ref": "Mc.ApiBundle.Form.PriceType",
+              "items": {
+                "$ref": "Mc.ApiBundle.Form.PriceType"
+              },
+              "description": "Liste des prix pratiqu\u00e9s"
+            }
+          ],
+          "responseMessages": []
+        },
+        {
+          "method": "PUT",
+          "summary": "R\u00e9cup\u00e8re la liste des lieux de l'application",
+          "nickname": "put_api-places",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "name",
+              "type": "string",
+              "description": "Nom du lieu"
+            },
+            {
+              "paramType": "form",
+              "name": "address",
+              "type": "string",
+              "description": "Adresse compl\u00e8te du lieu"
+            },
+            {
+              "paramType": "form",
+              "name": "prices",
+              "type": "Mc.ApiBundle.Form.PriceType",
+              "$ref": "Mc.ApiBundle.Form.PriceType",
+              "items": {
+                "$ref": "Mc.ApiBundle.Form.PriceType"
+              },
+              "description": "Liste des prix pratiqu\u00e9s"
+            }
+          ],
+          "responseMessages": []
+        }
+      ]
+    }
+  ],
+  "models": {
+    "Mc.ApiBundle.Entity.Price": {
+      "id": "Mc.ApiBundle.Entity.Price",
+      "description": "array of objects (Price)",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string",
+          "description": "string"
+        },
+        "value": {
+          "type": "number",
+          "description": "float",
+          "format": "float"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ]
+    },
+    "Mc.ApiBundle.Entity.Place": {
+      "id": "Mc.ApiBundle.Entity.Place",
+      "description": "",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "string"
+        },
+        "address": {
+          "type": "string",
+          "description": "string"
+        },
+        "prices": {
+          "type": "array",
+          "description": "array of objects (Price)",
+          "items": {
+            "$ref": "Mc.ApiBundle.Entity.Price"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "description": "Identifiant unique du lieu",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "name",
+        "address"
+      ]
+    },
+    "Mc.ApiBundle.Form.PriceType": {
+      "id": "Mc.ApiBundle.Form.PriceType",
+      "description": "Liste des prix pratiqu\u00e9s",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "string"
+        },
+        "value": {
+          "type": "number",
+          "description": "float",
+          "format": "float"
+        },
+        "place": {
+          "type": "string",
+          "description": "choice"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ]
+    },
+    "Mc.ApiBundle.Form.PlaceType.FieldErrors[name]": {
+      "id": "Mc.ApiBundle.Form.PlaceType.FieldErrors[name]",
+      "description": "Field name",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of field error messages",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PlaceType.FieldErrors[address]": {
+      "id": "Mc.ApiBundle.Form.PlaceType.FieldErrors[address]",
+      "description": "Field name",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of field error messages",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.type]": {
+      "id": "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.type]",
+      "description": "Field name",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of field error messages",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.value]": {
+      "id": "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.value]",
+      "description": "Field name",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of field error messages",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.place]": {
+      "id": "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.place]",
+      "description": "Field name",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of field error messages",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PriceType.Children": {
+      "id": "Mc.ApiBundle.Form.PriceType.Children",
+      "description": "List of errors",
+      "properties": {
+        "type": {
+          "$ref": "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.type]"
+        },
+        "value": {
+          "$ref": "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.value]"
+        },
+        "place": {
+          "$ref": "Mc.ApiBundle.Form.PriceType.FieldErrors[prices.place]"
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PriceType.FormErrors": {
+      "id": "Mc.ApiBundle.Form.PriceType.FormErrors",
+      "description": "Validation error messages",
+      "properties": {
+        "children": {
+          "$ref": "Mc.ApiBundle.Form.PriceType.Children"
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PlaceType.FieldErrors[prices]": {
+      "id": "Mc.ApiBundle.Form.PlaceType.FieldErrors[prices]",
+      "description": "Field name",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of field error messages",
+          "items": {
+            "type": "string"
+          }
+        },
+        "children": {
+          "type": "array",
+          "description": "Validation error messages",
+          "items": {
+            "$ref": "Mc.ApiBundle.Form.PriceType.FormErrors"
+          }
+        }
+      },
+      "required": [
+        "children"
+      ]
+    },
+    "Mc.ApiBundle.Form.PlaceType.Children": {
+      "id": "Mc.ApiBundle.Form.PlaceType.Children",
+      "description": "Errors",
+      "properties": {
+        "name": {
+          "$ref": "Mc.ApiBundle.Form.PlaceType.FieldErrors[name]"
+        },
+        "address": {
+          "$ref": "Mc.ApiBundle.Form.PlaceType.FieldErrors[address]"
+        },
+        "prices": {
+          "$ref": "Mc.ApiBundle.Form.PlaceType.FieldErrors[prices]"
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PlaceType.FormErrors": {
+      "id": "Mc.ApiBundle.Form.PlaceType.FormErrors",
+      "description": "List of errors",
+      "properties": {
+        "children": {
+          "$ref": "Mc.ApiBundle.Form.PlaceType.Children"
+        }
+      },
+      "required": []
+    },
+    "Mc.ApiBundle.Form.PlaceType": {
+      "id": "Mc.ApiBundle.Form.PlaceType",
+      "description": "",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "description": "The status code",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message"
+        },
+        "errors": {
+          "$ref": "Mc.ApiBundle.Form.PlaceType.FormErrors"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    }
+  },
+  "produces": [],
+  "consumes": [],
+  "definitions": {
+    "Pet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "photoUrls": {
+          "type": "array",
+          "xml": {
+            "name": "photoUrl",
+            "wrapped": true
+          },
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "authorizations": {
+"apiKey": {
+"type": "apiKey",
+"passAs": "header",
+"keyname": "X-Auth-Token"
+}
+}
+}
