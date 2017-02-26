@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 framework:
     #esi:             ~
@@ -18,7 +19,9 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    serializer:      { enable_annotations: true }
+#    serializer:      { enable_annotations: true }
+    serializer:
+        enabled: false
     templating:
         engines: ['twig']
     default_locale:  "%locale%"
@@ -87,13 +90,65 @@ fos_rest:
         formats:
             json: true
             xml:  true
+            html: true
     serializer:
         serialize_null:  true
     format_listener:
         rules:
-            - { path: '^/api', priorities: ['json', 'xml'], fallback_format: 'json', prefer_extension: false }
+            - { path: '^/api', priorities: ['json', 'xml', 'html'], fallback_format: 'json', prefer_extension: false }
+            - { path: ^/, priorities: ['html', '*/*'], fallback_format: html, prefer_extension: true }
     # configuration à rajouter pour activer le body listener alimente Request
     body_listener:
         enabled: true
     exception:
         enabled: true
+    param_fetcher_listener:
+        enabled: true
+
+
+nelmio_api_doc:
+    sandbox:
+        enabled:  true  # Juste pour la lisibilité car true est déjà la valeur par défaut
+        endpoint: http://rest-api.local
+
+        authentication:
+            name: X-Auth-Token
+            delivery: header
+
+        accept_type: application/json   # valeur par défaut de l'entête Accept
+
+        body_format:
+            formats: [ json, xml ]
+            default_format: json
+
+        request_format:
+            formats:
+                json: application/json
+                xml: application/xml
+
+            method: accept_header
+            default_format: json
+
+    swagger:
+        api_base_path:        /
+        swagger_version:      '1.2'
+        api_version:          '1.0'
+        info:
+            title:                Rest API
+            description:          'Proposition de sortie aux utilisateurs'
+
+#nelmio_api_doc:
+#    sandbox:
+#        request_format:
+#            method: accept_header # default format_param, alternately accept_header, decides how to request the response format
+#        entity_to_choice: false
+#        authentication:             # default is `~` (`null`), if set, the sandbox automatically                    # send authenticated requests using the configured `delivery`
+#            delivery: http          # `query`, `http`, and `header` are supported
+#            name: Authorization      # access token name or query parameter name or header name
+#            type:     bearer
+
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: "Y-m-d\\TH:i:sP"
+            default_timezone: "UTC"

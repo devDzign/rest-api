@@ -1,0 +1,14 @@
+# src/AppBundle/Resources/config/serializer/Entity.Place.yml
+Mc\ApiBundle\Entity\Place:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['place', 'price']
+        name:
+            groups: ['place', 'price',]
+        address:
+            groups: ['place', 'price', 'theme']
+        prices:
+            groups: ['place']
+        themes:
+            groups: ['place']
