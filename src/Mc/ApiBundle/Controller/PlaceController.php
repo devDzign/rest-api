@@ -212,6 +212,7 @@ class PlaceController extends AbstractApiController
      * @ApiDoc(
      *     resource=true,
      *    description="Récupère la liste des lieux de l'application",
+     *     input={"class"=PlaceType::class, "name"=""},
      * )
      * @Rest\View(serializerGroups={"place"})
      * @param Request $request
@@ -229,6 +230,7 @@ class PlaceController extends AbstractApiController
      * @ApiDoc(
      *     resource=true,
      *    description="Récupère la liste des lieux de l'application",
+     *     input={"class"=PlaceType::class, "name"=""},
      * )
      * @Rest\View(serializerGroups={"place"})
      * @param Request $request
